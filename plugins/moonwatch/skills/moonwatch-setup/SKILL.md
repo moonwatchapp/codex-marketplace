@@ -5,6 +5,8 @@ description: Set up Moonwatch for Codex or a project. Use when the user asks to 
 
 # Moonwatch Setup
 
+Invoke this skill with `set up Moonwatch for this project` or `use $moonwatch:moonwatch-setup`. Codex does not currently expose this as `/moonwatch-setup`.
+
 Follow `../moonwatch/references/moonwatch-guide.md#setup-workflow`.
 
 Key points:

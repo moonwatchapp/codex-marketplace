@@ -7,6 +7,16 @@ description: AI-powered runtime debugging, log analysis, watcher investigations,
 
 Use Moonwatch to get runtime evidence instead of guessing from static code. Moonwatch operations use the `mw` CLI from `@moonwatch/cli`; if `mw` is not available, install it once when possible and fall back to `npx`.
 
+## Invocation
+
+Codex does not currently expose Moonwatch as `/moonwatch-*` slash commands. Use natural language or an explicit skill mention:
+
+- `set up Moonwatch for this project`
+- `use $moonwatch:moonwatch-setup`
+- `use $moonwatch:moonwatch-analyze-logs`
+- `use $moonwatch:moonwatch-list-watchers`
+- `use $moonwatch:moonwatch-monitoring`
+
 ## CLI Setup
 
 Before the first Moonwatch command in a session:

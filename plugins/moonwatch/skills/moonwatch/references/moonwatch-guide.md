@@ -2,6 +2,16 @@
 
 This reference is the portable Codex version of the Moonwatch skill. Keep `SKILL.md` files short and read this reference only when the task needs details.
 
+## Invocation
+
+Codex does not currently expose Moonwatch as custom `/moonwatch-*` slash commands. Ask for the workflow in natural language or mention the skill explicitly:
+
+- `set up Moonwatch for this project`
+- `use $moonwatch:moonwatch-setup`
+- `use $moonwatch:moonwatch-analyze-logs`
+- `use $moonwatch:moonwatch-list-watchers`
+- `use $moonwatch:moonwatch-monitoring`
+
 ## CLI
 
 All Moonwatch reads and management operations go through `mw`, the command-line tool from `@moonwatch/cli`.
