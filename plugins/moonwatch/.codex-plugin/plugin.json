@@ -1,6 +1,6 @@
 {
   "name": "moonwatch",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "AI-powered log analysis, debugging, monitoring, and watcher-based runtime investigations using the mw CLI.",
   "author": {
     "name": "Moonwatch",
