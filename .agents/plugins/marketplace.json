@@ -1,7 +1,7 @@
 {
-  "name": "moonwatch-local",
+  "name": "moonwatch",
   "interface": {
-    "displayName": "Moonwatch Local"
+    "displayName": "Moonwatch"
   },
   "plugins": [
     {
