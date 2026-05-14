@@ -34,7 +34,8 @@ Resolve the log file before querying logs or managing watchers:
 
 - Prefer `MOONWATCH_LOG_FILE_ID` for production.
 - Use `MOONWATCH_LOG_FILE_ID_DEV` only when the user explicitly mentions local/dev.
-- If no log file is configured, check project-local `.codex/config.toml` for `shell_environment_policy.set.MOONWATCH_LOG_FILE_ID`, then use the setup workflow in `../moonwatch-setup/SKILL.md`.
+- If env vars are missing, check `.env.local` for developer-local values, then `.codex/config.toml` for shared `shell_environment_policy.set.MOONWATCH_LOG_FILE_ID`.
+- If no log file is configured, use the setup workflow in `../moonwatch-setup/SKILL.md`.
 
 For complete commands, watcher patterns, setup details, SDK usage, query examples, and monitoring card config, read `references/moonwatch-guide.md`.
 

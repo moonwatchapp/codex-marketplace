@@ -58,7 +58,10 @@ Before using `mw logs query`, `mw watchers create`, or `mw watchers list`, resol
 
 1. Use `MOONWATCH_LOG_FILE_ID` by default.
 2. Use `MOONWATCH_LOG_FILE_ID_DEV` only for local/dev requests.
-3. If neither is set, run the setup workflow.
+3. If the env vars are missing, read project-local files in this order:
+   - `.env.local` for developer-local values such as `MOONWATCH_LOG_FILE_ID_DEV`
+   - `.codex/config.toml` for shared project values under `shell_environment_policy.set`
+4. If no log file can be resolved, run the setup workflow.
 
 Always pass the resolved log file ID explicitly.
 
@@ -183,16 +186,19 @@ Use `flush: "immediate"` for serverless/short-lived runtimes, `flush: "auto"` fo
 3. If missing or stale, ask the user for their personal key from `https://moonwatch.dev/app/setup`.
 4. Prefer saving personal CLI auth to `~/.config/moonwatch/config.json` or instruct the user to export `MOONWATCH_PERSONAL_KEY`.
 5. Run `mw logs files --owned` and select or create a production log file.
-6. Save non-secret project log IDs in project-local Codex config so future Codex sessions inherit them. Create or update `.codex/config.toml`:
+6. Save the shared production log ID in project-local Codex config so future Codex sessions inherit it. Create or update `.codex/config.toml`:
    ```toml
    [shell_environment_policy]
-   set = { MOONWATCH_LOG_FILE_ID = "<production-log-id>", MOONWATCH_LOG_FILE_ID_DEV = "<dev-log-id>" }
+   set = { MOONWATCH_LOG_FILE_ID = "<production-log-id>" }
    ```
-   If the project already has `[shell_environment_policy]`, merge the `set` values instead of replacing existing config.
-7. Also save project log IDs in the app's local environment file when the application itself needs them:
-   - `MOONWATCH_LOG_FILE_ID`
-   - `MOONWATCH_LOG_FILE_ID_DEV` when a dev log is selected
-8. For SDK ingestion, fetch the workspace key with `mw logs key <logFileId>` when the user's role allows it, and store it as `MOONWATCH_API_KEY` in a local, uncommitted environment file. Do not commit workspace ingestion keys.
+   If the project already has `[shell_environment_policy]`, merge the `set` values instead of replacing existing config. This file can be committed when it contains only non-secret shared project IDs.
+7. Save developer-local log IDs in `.env.local`, which must remain uncommitted:
+   ```bash
+   MOONWATCH_LOG_FILE_ID_DEV=<developer-local-log-id>
+   ```
+   Use this for each developer's personal Moonwatch project during local development.
+8. Also save project log IDs in the app's local environment file when the application itself needs them.
+9. For SDK ingestion, fetch the workspace key with `mw logs key <logFileId>` when the user's role allows it, and store it as `MOONWATCH_API_KEY` in a local, uncommitted environment file. Do not commit workspace ingestion keys.
 
 Do not ask the user for the workspace ingestion key unless `mw logs key` fails for permissions. The personal key and workspace key are different.
 

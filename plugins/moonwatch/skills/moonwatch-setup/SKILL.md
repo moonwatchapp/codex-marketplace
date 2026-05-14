@@ -16,6 +16,7 @@ Key points:
 - If global install fails or is declined, use `npx -y @moonwatch/cli@latest`.
 - Verify auth with `mw whoami`.
 - Do not store personal keys in committed files.
-- Store non-secret log file IDs in project-local `.codex/config.toml` under `[shell_environment_policy].set` so future Codex sessions inherit them.
+- Store the shared production log file ID in project-local `.codex/config.toml` under `[shell_environment_policy].set`.
+- Store developer-local log file IDs, such as `MOONWATCH_LOG_FILE_ID_DEV`, in uncommitted `.env.local`.
 - Store workspace ingestion keys only in local, uncommitted environment files.
 - Prefer reusing an existing logger setup before adding SDK initialization.
