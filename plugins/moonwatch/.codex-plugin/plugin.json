@@ -1,7 +1,7 @@
 {
   "name": "moonwatch",
-  "version": "0.2.4",
-  "description": "AI-powered log analysis, debugging, monitoring, and watcher-based runtime investigations using the mw CLI.",
+  "version": "0.2.5",
+  "description": "AI-powered log analysis, debugging, monitoring, and watcher-based runtime investigations using the Moonwatch CLI through npx.",
   "author": {
     "name": "Moonwatch",
     "url": "https://moonwatch.dev"
@@ -18,7 +18,7 @@
   "interface": {
     "displayName": "Moonwatch",
     "shortDescription": "Analyze logs, manage watchers, and inspect monitoring data.",
-    "longDescription": "Moonwatch gives Codex persistent runtime insight through structured logs, watcher investigations, and monitoring queries using the mw CLI.",
+    "longDescription": "Moonwatch gives Codex persistent runtime insight through structured logs, watcher investigations, and monitoring queries using the latest Moonwatch CLI through npx.",
     "developerName": "Moonwatch",
     "category": "Developer Tools",
     "capabilities": [

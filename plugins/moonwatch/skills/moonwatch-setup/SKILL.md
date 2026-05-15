@@ -1,6 +1,6 @@
 ---
 name: moonwatch-setup
-description: Set up Moonwatch for Codex or a project. Use when the user asks to configure Moonwatch, install the `mw` CLI, authenticate with a personal key, choose log files, fetch ingestion keys, or add Moonwatch SDK logging.
+description: Set up Moonwatch for Codex or a project. Use when the user asks to configure Moonwatch, authenticate with a personal key, choose log files, fetch ingestion keys, or add Moonwatch SDK logging.
 ---
 
 # Moonwatch Setup
@@ -11,10 +11,9 @@ Follow `../moonwatch/references/moonwatch-guide.md#setup-workflow`.
 
 Key points:
 
-- Check `command -v mw` first.
-- If `mw` is missing, ask once to run `npm install -g @moonwatch/cli`.
-- If global install fails or is declined, use `npx -y @moonwatch/cli@latest`.
-- Verify auth with `mw whoami`.
+- Use `npx -y @moonwatch/cli@latest` for every Moonwatch CLI command.
+- Do not check for, install, or use a global CLI binary.
+- Verify auth with `npx -y @moonwatch/cli@latest whoami`.
 - Do not store personal keys in committed files.
 - Store the shared production log file ID in project-local `.codex/config.toml` under `[shell_environment_policy].set`.
 - Store developer-local log file IDs, such as `MOONWATCH_LOG_FILE_ID_DEV`, in uncommitted `.env.local`.

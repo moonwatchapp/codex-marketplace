@@ -1,11 +1,11 @@
 ---
 name: moonwatch
-description: AI-powered runtime debugging, log analysis, watcher investigations, and monitoring with Moonwatch. Use when Codex needs to inspect application logs, analyze errors, add diagnostic logging, manage watchers, configure Moonwatch, query metrics, or build monitoring dashboards with the `mw` CLI.
+description: AI-powered runtime debugging, log analysis, watcher investigations, and monitoring with Moonwatch. Use when Codex needs to inspect application logs, analyze errors, add diagnostic logging, manage watchers, configure Moonwatch, query metrics, or build monitoring dashboards with the latest `@moonwatch/cli` via npx.
 ---
 
 # Moonwatch
 
-Use Moonwatch to get runtime evidence instead of guessing from static code. Moonwatch operations use the `mw` CLI from `@moonwatch/cli`; if `mw` is not available, install it once when possible and fall back to `npx`.
+Use Moonwatch to get runtime evidence instead of guessing from static code. Moonwatch operations must use the latest `@moonwatch/cli` through `npx -y @moonwatch/cli@latest`; do not ask to install a global CLI binary.
 
 ## Invocation
 
@@ -17,16 +17,15 @@ Codex does not currently expose Moonwatch as `/moonwatch-*` slash commands. Use 
 - `use $moonwatch:moonwatch-list-watchers`
 - `use $moonwatch:moonwatch-monitoring`
 
-## CLI Setup
+## CLI Usage
 
-Before the first Moonwatch command in a session:
+Use this command prefix for every Moonwatch CLI command:
 
-1. Run `command -v mw`.
-2. If missing, ask once whether to install globally with `npm install -g @moonwatch/cli`.
-3. After installing, verify with `mw --version` or `mw whoami`.
-4. If install fails or the user declines, use `npx -y @moonwatch/cli@latest` as the command prefix for every `mw` command.
+```bash
+npx -y @moonwatch/cli@latest
+```
 
-Do not block Moonwatch usage just because global install is unavailable.
+For example, run `npx -y @moonwatch/cli@latest whoami` to verify auth.
 
 ## Required Context
 
@@ -44,8 +43,8 @@ For complete commands, watcher patterns, setup details, SDK usage, query example
 1. Create or reuse a watcher for runtime bugs.
 2. Place watcher-scoped `logger.debug()` logs around relevant code paths.
 3. Ask the user to reproduce the issue when reproduction is needed.
-4. Query watcher logs with `mw logs query <logFileId> "SELECT ... WHERE watcher_id = '<uuid>' ..."`.
-5. Record findings with `mw watchers update`.
+4. Query watcher logs with `npx -y @moonwatch/cli@latest logs query <logFileId> "SELECT ... WHERE watcher_id = '<uuid>' ..."`.
+5. Record findings with `npx -y @moonwatch/cli@latest watchers update`.
 6. Fix the bug.
 7. Remove temporary diagnostic logs before marking the watcher resolved.
 

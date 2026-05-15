@@ -9,4 +9,4 @@ Invoke this skill with `set up Moonwatch monitoring` or `use $moonwatch:moonwatc
 
 Follow `../moonwatch/references/moonwatch-guide.md#monitoring`.
 
-Use `mw monitoring projects list`, `mw monitoring dashboards list`, `mw monitoring metrics`, `mw monitoring query`, and `mw monitoring cards` commands. Prefer stable metric/event names and dashboard cards that answer operational questions directly.
+Use `npx -y @moonwatch/cli@latest monitoring projects list`, `npx -y @moonwatch/cli@latest monitoring dashboards list`, `npx -y @moonwatch/cli@latest monitoring metrics`, `npx -y @moonwatch/cli@latest monitoring query`, and `npx -y @moonwatch/cli@latest monitoring cards` commands. Prefer stable metric/event names and dashboard cards that answer operational questions directly.

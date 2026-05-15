@@ -14,16 +14,13 @@ Codex does not currently expose Moonwatch as custom `/moonwatch-*` slash command
 
 ## CLI
 
-All Moonwatch reads and management operations go through `mw`, the command-line tool from `@moonwatch/cli`.
+All Moonwatch reads and management operations go through the latest `@moonwatch/cli` package via `npx`. Do not check for, install, or use a global CLI binary.
 
-Install/check flow:
+Command prefix:
 
 ```bash
-command -v mw >/dev/null 2>&1 || npm install -g @moonwatch/cli
-command -v mw >/dev/null 2>&1 || echo "use npx -y @moonwatch/cli@latest"
+npx -y @moonwatch/cli@latest
 ```
-
-Use `npx -y @moonwatch/cli@latest` as a prefix when `mw` is unavailable.
 
 Auth order:
 
@@ -36,25 +33,25 @@ Exit codes: `0` ok, `1` API/server error, `2` bad usage/config, `3` auth failed,
 Common commands:
 
 ```bash
-mw whoami
-mw logs files --owned
-mw logs files create <name> --workspace <workspaceId>
-mw logs key <logFileId>
-mw logs query <logFileId> "<SQL>"
-mw watchers list --log <logFileId>
-mw watchers get <watcherId>
-mw watchers create --title "<title>" --description "<description>" --log <logFileId>
-mw watchers update <watcherId> --findings "<findings>" --status-summary "<summary>"
-mw monitoring projects list
-mw monitoring dashboards list --project <projectId>
-mw monitoring metrics --project <projectId>
-mw monitoring query <projectId> "<SQL>"
-mw monitoring cards list --dashboard <dashboardId>
+npx -y @moonwatch/cli@latest whoami
+npx -y @moonwatch/cli@latest logs files --owned
+npx -y @moonwatch/cli@latest logs files create <name> --workspace <workspaceId>
+npx -y @moonwatch/cli@latest logs key <logFileId>
+npx -y @moonwatch/cli@latest logs query <logFileId> "<SQL>"
+npx -y @moonwatch/cli@latest watchers list --log <logFileId>
+npx -y @moonwatch/cli@latest watchers get <watcherId>
+npx -y @moonwatch/cli@latest watchers create --title "<title>" --description "<description>" --log <logFileId>
+npx -y @moonwatch/cli@latest watchers update <watcherId> --findings "<findings>" --status-summary "<summary>"
+npx -y @moonwatch/cli@latest monitoring projects list
+npx -y @moonwatch/cli@latest monitoring dashboards list --project <projectId>
+npx -y @moonwatch/cli@latest monitoring metrics --project <projectId>
+npx -y @moonwatch/cli@latest monitoring query <projectId> "<SQL>"
+npx -y @moonwatch/cli@latest monitoring cards list --dashboard <dashboardId>
 ```
 
 ## Log File Selection
 
-Before using `mw logs query`, `mw watchers create`, or `mw watchers list`, resolve a log file:
+Before querying logs, creating watchers, or listing watchers, resolve a log file:
 
 1. Use `MOONWATCH_LOG_FILE_ID` by default.
 2. Use `MOONWATCH_LOG_FILE_ID_DEV` only for local/dev requests.
@@ -70,7 +67,7 @@ Always pass the resolved log file ID explicitly.
 Create a watcher before investigating runtime bugs:
 
 ```bash
-mw watchers create \
+npx -y @moonwatch/cli@latest watchers create \
   --title "500s on POST /api/orders" \
   --description "Investigating intermittent 500s on POST /api/orders. Initial suspicion: payment gateway timeout path lacks request timeout. Expected outcome: watcher logs should show gateway timing and retry behavior." \
   --log <logFileId>
@@ -90,7 +87,7 @@ dbg.debug("gateway call finished", { orderId, status, ms });
 After instrumentation, update the watcher:
 
 ```bash
-mw watchers update <watcherId> \
+npx -y @moonwatch/cli@latest watchers update <watcherId> \
   --description "Investigating intermittent 500s on POST /api/orders. Instrumented src/services/orderService.ts for order entry, gateway timing, retry branch, and error handler. All logs use group api/orders. Expected outcome: gateway calls over 10s should correlate with 500s." \
   --status-summary "Debug logs placed. Awaiting reproduction."
 ```
@@ -181,11 +178,11 @@ Use `flush: "immediate"` for serverless/short-lived runtimes, `flush: "auto"` fo
 
 ## Setup Workflow
 
-1. Check whether `mw` is available; install globally if allowed, otherwise use `npx -y @moonwatch/cli@latest`.
-2. Verify `MOONWATCH_PERSONAL_KEY` by running `mw whoami`.
+1. Use `npx -y @moonwatch/cli@latest` for all Moonwatch CLI commands.
+2. Verify `MOONWATCH_PERSONAL_KEY` by running `npx -y @moonwatch/cli@latest whoami`.
 3. If missing or stale, ask the user for their personal key from `https://moonwatch.dev/app/setup`.
 4. Prefer saving personal CLI auth to `~/.config/moonwatch/config.json` or instruct the user to export `MOONWATCH_PERSONAL_KEY`.
-5. Run `mw logs files --owned` and select or create a production log file.
+5. Run `npx -y @moonwatch/cli@latest logs files --owned` and select or create a production log file.
 6. Save the shared production log ID in project-local Codex config so future Codex sessions inherit it. Create or update `.codex/config.toml`:
    ```toml
    [shell_environment_policy]
@@ -198,15 +195,15 @@ Use `flush: "immediate"` for serverless/short-lived runtimes, `flush: "auto"` fo
    ```
    Use this for each developer's personal Moonwatch project during local development.
 8. Also save project log IDs in the app's local environment file when the application itself needs them.
-9. For SDK ingestion, fetch the workspace key with `mw logs key <logFileId>` when the user's role allows it, and store it as `MOONWATCH_API_KEY` in a local, uncommitted environment file. Do not commit workspace ingestion keys.
+9. For SDK ingestion, fetch the workspace key with `npx -y @moonwatch/cli@latest logs key <logFileId>` when the user's role allows it, and store it as `MOONWATCH_API_KEY` in a local, uncommitted environment file. Do not commit workspace ingestion keys.
 
-Do not ask the user for the workspace ingestion key unless `mw logs key` fails for permissions. The personal key and workspace key are different.
+Do not ask the user for the workspace ingestion key unless `npx -y @moonwatch/cli@latest logs key` fails for permissions. The personal key and workspace key are different.
 
 ## Analyze Logs Workflow
 
 1. Resolve the log file.
 2. Query recent errors, error counts by type, volume by group, and any user-provided search term.
-3. Check existing watchers with `mw watchers list --log <logFileId>`.
+3. Check existing watchers with `npx -y @moonwatch/cli@latest watchers list --log <logFileId>`.
 4. If a related watcher exists, read it and append new findings.
 5. If none exists and ongoing monitoring would help, offer to create a watcher and instrument the relevant code.
 
@@ -215,8 +212,8 @@ Report the concrete pattern, affected endpoints/groups, timestamps, likely root 
 ## List Watchers Workflow
 
 ```bash
-mw watchers list --log <logFileId>
-mw watchers get <watcherId>
+npx -y @moonwatch/cli@latest watchers list --log <logFileId>
+npx -y @moonwatch/cli@latest watchers get <watcherId>
 ```
 
 For watchers with new data, read findings first, query watcher logs, update `--findings`, and refresh `--status-summary`.
@@ -226,11 +223,11 @@ For watchers with new data, read findings first, query watcher logs, update `--f
 Monitoring projects contain polls, events, snapshots, dashboards, and cards.
 
 ```bash
-mw monitoring projects list
-mw monitoring dashboards list --project <projectId>
-mw monitoring metrics --project <projectId>
-mw monitoring query <projectId> "<SQL>"
-mw monitoring cards create --dashboard <dashboardId> --type graph --title "P95 latency" --config '<json>' --width 6
+npx -y @moonwatch/cli@latest monitoring projects list
+npx -y @moonwatch/cli@latest monitoring dashboards list --project <projectId>
+npx -y @moonwatch/cli@latest monitoring metrics --project <projectId>
+npx -y @moonwatch/cli@latest monitoring query <projectId> "<SQL>"
+npx -y @moonwatch/cli@latest monitoring cards create --dashboard <dashboardId> --type graph --title "P95 latency" --config '<json>' --width 6
 ```
 
 Useful queries:

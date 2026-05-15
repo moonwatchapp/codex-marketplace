@@ -9,4 +9,4 @@ Invoke this skill with `list Moonwatch watchers` or `use $moonwatch:moonwatch-li
 
 Follow `../moonwatch/references/moonwatch-guide.md#list-watchers-workflow`.
 
-Use `mw watchers list --log <logFileId>` after resolving the log file. For watchers with new data, read the watcher, query matching logs, update findings, and refresh the status summary.
+Use `npx -y @moonwatch/cli@latest watchers list --log <logFileId>` after resolving the log file. For watchers with new data, read the watcher, query matching logs, update findings, and refresh the status summary.
